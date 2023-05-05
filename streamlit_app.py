@@ -38,6 +38,18 @@ my_cur.execute("SELECT * from fruit_load_list")
 my_data_rows = my_cur.fetchall()
 streamlit.header("The fruit load list contains:")
 streamlit.dataframe(my_data_rows)
+add fruit=streamlit.form(key='add_fruit')
+new_fruit=add_fruit.text_input('What fruit would you like to add?')
+submit_button = add_fruit.form_submit_button('Add Fruit')
+if submit_button:
+    new_fruit_name = new_fruit.strip()
+    if new_fruit_name:
+        my_cur.execute("INSERT INTO fruit_load_list (fruit_name) VALUES (%s)", (new_fruit_name,))
+        my_cnx.commit()
+my_cur.execute("SELECT * FROM fruit_load_list ORDER BY fruit_name")
+my_data_rows = my_cur.fetchall()
+streamlit.header("The fruit load list contains:")
+streamlit.dataframe(my_data_rows)
 
-#This will not work correctly, but just go with it for now
-my_cur.execute("insert into fruit_load_list values ('from streamlit')")
+
+
