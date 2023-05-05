@@ -38,9 +38,10 @@ my_cur.execute("SELECT * from fruit_load_list")
 my_data_rows = my_cur.fetchall()
 streamlit.header("The fruit load list contains:")
 streamlit.dataframe(my_data_rows)
-add fruit=streamlit.form(key='add_fruit')
-new_fruit=add_fruit.text_input('What fruit would you like to add?')
+add_fruit = streamlit.form(key='add_fruit')
+new_fruit = add_fruit.text_input('Enter a new fruit')
 submit_button = add_fruit.form_submit_button('Add Fruit')
+
 if submit_button:
     new_fruit_name = new_fruit.strip()
     if new_fruit_name:
